@@ -12,6 +12,11 @@ const sampleTrigger: Trigger<typeof SampleWorkflow.definition> = {
   name: "Sample trigger",
   description: "A sample trigger",
   workflow: `#/workflows/${SampleWorkflow.definition.callback_id}`,
+  event: {
+    event_type: 
+      TriggerTypes.app_mentions,
+      all_resources: true
+  },
   inputs: {
     interactivity: {
       value: TriggerContextData.Shortcut.interactivity,

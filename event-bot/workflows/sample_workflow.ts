@@ -1,5 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
-import { SampleFunctionDefinition } from "../functions/sample_function.ts";
+import { CreateEventFunctionDefinition } from "../functions/create_event.ts";
 
 /**
  * A workflow is a set of steps that are executed in order.
@@ -64,7 +64,7 @@ const inputForm = SampleWorkflow.addStep(
  * outputs, just like typical programmatic functions.
  * https://api.slack.com/automation/functions/custom
  */
-const sampleFunctionStep = SampleWorkflow.addStep(SampleFunctionDefinition, {
+const sampleFunctionStep = SampleWorkflow.addStep(CreateEventFunctionDefinition, {
   message: inputForm.outputs.fields.message,
   user: SampleWorkflow.inputs.user,
 });
