@@ -96,9 +96,13 @@ const sampleFunctionStep = SampleWorkflow.addStep(
  * a message and can be used alongside custom functions in a workflow.
  * https://api.slack.com/automation/functions
  */
-// SampleWorkflow.addStep(Schema.slack.functions.SendMessage, {
-//   channel_id: inputForm.outputs.fields.channel,
-//   message: sampleFunctionStep.outputs.updatedMsg,
-// });
+SampleWorkflow.addStep(Schema.slack.functions.SendMessage, {
+  channel_id: inputForm.outputs.fields.channel,
+  message: `Hello team, We have an upcoming event in Moscow:
+    *Event Name:* ${inputForm.outputs.fields.title}
+    *Date & Time:* ${inputForm.outputs.fields.time}
+    *Description:* ${inputForm.outputs.fields.description}
+    Looking forward to seeing some people!`,
+});
 
 export default SampleWorkflow;
