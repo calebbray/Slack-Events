@@ -52,6 +52,12 @@ const inputForm = SampleWorkflow.addStep(Schema.slack.functions.OpenForm, {
   fields: {
     elements: [
       {
+        name: "channel",
+        title: "sending here",
+        type: Schema.slack.types.channel_id,
+        default: SampleWorkflow.inputs.channel,
+      },
+      {
         name: "title",
         title: "title",
         type: Schema.types.string,
@@ -81,15 +87,15 @@ const inputForm = SampleWorkflow.addStep(Schema.slack.functions.OpenForm, {
  * outputs, just like typical programmatic functions.
  * https://api.slack.com/automation/functions/custom
  */
-const sampleFunctionStep = SampleWorkflow.addStep(
-  CreateEventFunctionDefinition,
-  {
-    title: inputForm.outputs.fields.title,
-    description: inputForm.outputs.fields.description,
-    time: inputForm.outputs.fields.time,
-  },
-);
-
+// const sampleFunctionStep = SampleWorkflow.addStep(
+//   CreateEventFunctionDefinition,
+//   {
+//     title: inputForm.inputs.fields.title,
+//     description: inputForm.outputs.fields.description,
+//     time: inputForm.outputs.fields.time,
+//   },
+// );
+//
 /**
  * SendMessage is a Slack function. These are
  * Slack-native actions, like creating a channel or sending

@@ -71,22 +71,29 @@ export default SlackFunction(
 
     // Save the sample object to the datastore
     // https://api.slack.com/automation/datastores
-    const putResponse = await client.apps.datastore.put({
-      datastore: "events",
-      item: {
-        object_id: uuid,
+    // const putResponse = await client.apps.datastore.put({
+    //   datastore: "events",
+    //   item: {
+    //     object_id: uuid,
+    //     title: inputs.title,
+    //     description: inputs.description,
+    //     time: inputs.time,
+    //   },
+    // });
+
+    // if (!putResponse.ok) {
+    //   return {
+    //     error: `Failed to put item into the datastore: ${putResponse.error}`,
+    //   };
+    // }
+
+    return {
+      outputs: {
+        id: "4",
         title: inputs.title,
         description: inputs.description,
         time: inputs.time,
       },
-    });
-
-    if (!putResponse.ok) {
-      return {
-        error: `Failed to put item into the datastore: ${putResponse.error}`,
-      };
-    }
-
-    return { outputs: putResponse.item };
+    };
   },
 );
