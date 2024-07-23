@@ -22,9 +22,9 @@ export const CreateEventFunctionDefinition = DefineFunction({
         description: "Description of your event",
       },
       time: {
-        type: Schema.slack.types.timestamp,
-        description: "Time of your event"
-      }
+        type: Schema.types.string,
+        description: "Time of your event",
+      },
     },
     required: ["title", "description", "time"],
   },
@@ -32,7 +32,7 @@ export const CreateEventFunctionDefinition = DefineFunction({
     properties: {
       object_id: {
         type: Schema.types.string,
-        description: "Id of object"
+        description: "Id of object",
       },
       title: {
         type: Schema.types.string,
@@ -43,16 +43,16 @@ export const CreateEventFunctionDefinition = DefineFunction({
         description: "Description of your event",
       },
       time: {
-        type: Schema.slack.types.timestamp,
-        description: "Time of your event"
+        type: Schema.types.string,
+        description: "Time of your event",
       },
-      rsvps: {
-        type: Schema.types.array,
-        items: {
-          type: Schema.slack.user_id
-        },
-        description: "Array of RSVP"
-        }
+      // rsvps: {
+      //   type: Schema.types.array,
+      //   items: {
+      //     type: Schema.slack.user_id,
+      //   },
+      //   description: "Array of RSVP",
+      // },
     },
     required: ["title", "description", "time"],
   },
@@ -77,7 +77,7 @@ export default SlackFunction(
         object_id: uuid,
         title: inputs.title,
         description: inputs.description,
-        time: inputs.time
+        time: inputs.time,
       },
     });
 

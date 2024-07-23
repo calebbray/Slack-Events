@@ -10,7 +10,7 @@ const EventsDatastore = DefineDatastore({
   primary_key: "object_id",
   attributes: {
     orgin_channel: {
-      type: Schema.slack.types.channel_id
+      type: Schema.slack.types.channel_id,
     },
     object_id: {
       type: Schema.types.string,
@@ -22,15 +22,15 @@ const EventsDatastore = DefineDatastore({
       type: Schema.types.string,
     },
     time: {
-      type: Schema.slack.types.timestamp,
+      type: Schema.types.string,
     },
-    rsvps: {
-      type: Schema.types.array,
-      items: {
-        type: Schema.slack.user_id
-      },
-      default: []
-    }
+    // rsvps: {
+    //   type: Schema.types.array,
+    //   items: {
+    //     type: Schema.slack.types.user_id,
+    //   },
+    //   default: [],
+    // },
   },
 });
 

@@ -24,6 +24,15 @@ const SampleWorkflow = DefineWorkflow({
       user: {
         type: Schema.slack.types.user_id,
       },
+      // title: {
+      //   type: Schema.types.string,
+      // },
+      // description: {
+      //   type: Schema.types.string,
+      // },
+      // time: {
+      //   type: Schema.types.string,
+      // },
     },
     required: ["interactivity", "channel", "user"],
   },
@@ -34,28 +43,36 @@ const SampleWorkflow = DefineWorkflow({
  * OpenForm Slack function as a first step.
  * https://api.slack.com/automation/functions#open-a-form
  */
-const inputForm = SampleWorkflow.addStep(
-  Schema.slack.functions.OpenForm,
-  {
-    title: "Send message to channel",
-    interactivity: SampleWorkflow.inputs.interactivity,
-    submit_label: "Send message",
-    fields: {
-      elements: [{
-        name: "channel",
-        title: "Channel to send message to",
-        type: Schema.slack.types.channel_id,
-        default: SampleWorkflow.inputs.channel,
-      }, {
-        name: "message",
-        title: "Message",
+const inputForm = SampleWorkflow.addStep(Schema.slack.functions.OpenForm, {
+  title: "Schedule an event",
+  // description: SampleWorkflow.inputs.description,
+  // time: SampleWorkflow.inputs.time,
+  interactivity: SampleWorkflow.inputs.interactivity,
+  submit_label: "Send message",
+  fields: {
+    elements: [
+      {
+        name: "title",
+        title: "title",
         type: Schema.types.string,
-        long: true,
-      }],
-      required: ["channel", "message"],
-    },
+        //default: SampleWorkflow.inputs.title,
+      },
+      {
+        name: "description",
+        title: "description",
+        type: Schema.types.string,
+        //default: SampleWorkflow.inputs.description,
+      },
+      {
+        name: "time",
+        title: "time",
+        type: Schema.types.string,
+        //default: SampleWorkflow.inputs.time,
+      },
+    ],
+    required: ["title", "description", "time"],
   },
-);
+});
 
 /**
  * Custom functions are reusable building blocks
@@ -64,10 +81,14 @@ const inputForm = SampleWorkflow.addStep(
  * outputs, just like typical programmatic functions.
  * https://api.slack.com/automation/functions/custom
  */
-const sampleFunctionStep = SampleWorkflow.addStep(CreateEventFunctionDefinition, {
-  message: inputForm.outputs.fields.message,
-  user: SampleWorkflow.inputs.user,
-});
+const sampleFunctionStep = SampleWorkflow.addStep(
+  CreateEventFunctionDefinition,
+  {
+    title: inputForm.outputs.fields.title,
+    description: inputForm.outputs.fields.description,
+    time: inputForm.outputs.fields.time,
+  },
+);
 
 /**
  * SendMessage is a Slack function. These are
@@ -75,9 +96,9 @@ const sampleFunctionStep = SampleWorkflow.addStep(CreateEventFunctionDefinition,
  * a message and can be used alongside custom functions in a workflow.
  * https://api.slack.com/automation/functions
  */
-SampleWorkflow.addStep(Schema.slack.functions.SendMessage, {
-  channel_id: inputForm.outputs.fields.channel,
-  message: sampleFunctionStep.outputs.updatedMsg,
-});
+// SampleWorkflow.addStep(Schema.slack.functions.SendMessage, {
+//   channel_id: inputForm.outputs.fields.channel,
+//   message: sampleFunctionStep.outputs.updatedMsg,
+// });
 
 export default SampleWorkflow;
